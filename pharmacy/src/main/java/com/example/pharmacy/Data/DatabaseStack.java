@@ -2,11 +2,10 @@ package com.example.pharmacy.Data;
 
 import com.example.pharmacy.DataBaseConnector.DatabaseConnection;
 import com.example.pharmacy.Repository.Drug;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseStack {
 
@@ -35,10 +34,11 @@ public class DatabaseStack {
     }
 
 
-    public Drug peekAtDatabase(){
+    public ObservableList<Drug> peekAtDatabase(){
         int id = 0, qty = 0;
         String name = " ", vendor = "", expDate ="", fabDate ="";
         Double unitPrice = 0.0;
+        ObservableList<Drug> drugCollection = FXCollections.observableArrayList();
 
         String selectQuery = "SELECT * FROM drug";
 
@@ -57,7 +57,7 @@ public class DatabaseStack {
                  expDate = resultSet.getString("expDate");
                  vendor = resultSet.getString("vendor");
                  unitPrice = resultSet.getDouble("unitPrice");
-
+                drugCollection.add(new Drug(id, name, qty, fabDate, expDate, vendor, unitPrice));
             }
 
             System.out.println("Stack.peek() operation performed on Database");
@@ -66,40 +66,22 @@ public class DatabaseStack {
             throw new RuntimeException(e);
         }
 
-        return  new Drug(id,  name, qty,vendor, fabDate, expDate, unitPrice);
+        return drugCollection;
     }
 
 
 
-    public Drug popFromDatabase(){
-        int id = 0, qty = 0;
-        String name = "", fabDate = "", expDate = "", vendor = "";
-        Double unitPrice = 0.0;
-
-        String selectQuery = "SELECT * FROM drug";
+    public Drug popFromDatabase(Drug drug){
+        Drug selectedDrug = drug;
 
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
 
+        String deleteQuery =  "DELETE FROM drug WHERE id =" + selectedDrug.getId();
+
         try{
-            PreparedStatement statement = connectDB.prepareStatement(selectQuery);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()){
-                 id = resultSet.getInt("id");
-                 name = resultSet.getString("name");
-                 qty = resultSet.getInt("qty");
-                 fabDate = resultSet.getString("fabDate");
-                 expDate = resultSet.getString("expDate");
-                 vendor = resultSet.getString("vendor");
-                 unitPrice = resultSet.getDouble("unitPrice");
-
-            }
-            String deleteQuery =  "DELETE FROM drugs WHERE id = ?";
-
-            try{
-                PreparedStatement delStatement = connectDB.prepareStatement(deleteQuery);
-                statement.setInt(1, id);
+                Statement delStatement = connectDB.createStatement();
+                delStatement.executeUpdate(deleteQuery);
                 System.out.println("Stack.pop() operation performed on Database");
                 System.out.println("Drug instance returned.");
 
@@ -107,12 +89,7 @@ public class DatabaseStack {
                 throw new RuntimeException(e);
             }
 
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return  new Drug(id, name, qty, vendor, fabDate, expDate, unitPrice);
+        return  selectedDrug;
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.pharmacy.controllers;
 
 import com.example.pharmacy.Data.DatabaseStack;
 import com.example.pharmacy.Repository.Drug;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,15 +67,35 @@ public class Drugs  implements Initializable {
 
 
     @FXML
-    private Button removeDrugtf;
+    private Button removeDrugBtn;
 
     @FXML
     private void handleDrugBtn(ActionEvent event){
-        pushToDatabase();
+        if (event.getSource() == addDrugBtn) {
+            pushToDatabase();
+            peeKAtDatabase();
+            drugIDtf.clear();
+            drugNametf.clear();
+            drugQtytf.clear();
+            drugVendortf.clear();
+            drugFABtf.clear();
+            drugEXPtf.clear();
+            drugPricetf.clear();
+        } else if(event.getSource() == removeDrugBtn){
+            popFromDatabase();
+            peeKAtDatabase();
+            drugIDtf.clear();
+            drugNametf.clear();
+            drugQtytf.clear();
+            drugVendortf.clear();
+            drugFABtf.clear();
+            drugEXPtf.clear();
+            drugPricetf.clear();
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    peeKAtDatabase();
     }
 
     public void pushToDatabase(){
@@ -91,14 +112,35 @@ public class Drugs  implements Initializable {
         databaseStack.pushToDatabase(drug);
     }
 
-    //public void peeKAtDatabase(){
-       // DatabaseStack databaseStack = new DatabaseStack();
+    public void peeKAtDatabase(){
+       DatabaseStack databaseStack = new DatabaseStack();
+        ObservableList<Drug> drugCollection = databaseStack.peekAtDatabase();
 
-     //   drugIDCol.setCellFactory(new PropertyValueFactory<>("id"));
+        drugIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        drugNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        drugQtyCol.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        drugVendorCol.setCellValueFactory(new PropertyValueFactory<>("vendor"));
+        drugFABCol.setCellValueFactory(new PropertyValueFactory<>("fabDate"));
+        drugEXPCol.setCellValueFactory(new PropertyValueFactory<>("expDate"));
+        drugPriceCol.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        drugTableView.setItems(drugCollection);
 
-   //     drugTableView.getColumns().addAll(drugIDCol, drugNameCol, drugVendorCol,drugQtyCol,drugPriceCol,drugFABCol,drugEXPCol);
+   }
 
 
-   // }
+    public void popFromDatabase(){
+        DatabaseStack databaseStack = new DatabaseStack();
+        int id = Integer.parseInt(drugIDtf.getText());
+        String name = drugNametf.getText();
+        int qty  = Integer.parseInt(drugQtytf.getText());
+        String vendor = drugVendortf.getText();
+        String fabDate = drugFABtf.getText();
+        String expDate =drugEXPtf.getText();
+        double price = Double.parseDouble(drugPricetf.getText());
+
+        Drug drug = new Drug(id, name, qty, vendor, fabDate, expDate, price);
+        databaseStack.popFromDatabase(drug);
+    }
+
 
 }
