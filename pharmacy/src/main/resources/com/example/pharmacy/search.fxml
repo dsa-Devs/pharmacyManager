@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,9 +18,9 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="123.0" layoutY="92.0" text="ENTER  DRUG NAME" />
-            <TextField fx:id="searchFieldtf" layoutX="263.0" layoutY="88.0" prefHeight="25.0" prefWidth="222.0" />
-            <TableView layoutX="9.0" layoutY="127.0" prefHeight="266.0" prefWidth="583.0">
+            <Label layoutX="77.0" layoutY="92.0" text="ENTER  DRUG NAME" />
+            <TextField fx:id="searchFieldtf" layoutX="215.0" layoutY="88.0" prefHeight="25.0" prefWidth="189.0" />
+            <TableView fx:id="searchTableView" layoutX="9.0" layoutY="127.0" prefHeight="266.0" prefWidth="583.0">
               <columns>
                 <TableColumn fx:id="searchIDCol" prefWidth="70.0" text="DRUG ID" />
                 <TableColumn fx:id="searchNameCol" prefWidth="130.0" text="NAME" />
@@ -30,6 +31,7 @@
                   <TableColumn fx:id="searchEXPCol" prefWidth="75.0" text="EXP DATE" />
               </columns>
             </TableView>
+            <Button fx:id="searchBtn" layoutX="415.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleSearch" text="Search" />
          </children>
       </AnchorPane>
    </children>
