@@ -1,5 +1,9 @@
 package com.example.pharmacy.controllers;
 
+import com.example.pharmacy.Data.DrugDataSource;
+import com.example.pharmacy.Data.HistoryDataSource;
+import com.example.pharmacy.Repository.Drug;
+import com.example.pharmacy.Repository.History;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,11 +38,32 @@ public class Purchase implements Initializable {
 
     @FXML
     void saveDetailsBtn(ActionEvent event) {
-
+        if (event.getSource() == savePurchaseBtn) {
+            pushToHistory();
+            drugIDtf.clear();
+            drugPricetf.clear();
+            drugQtytf.clear();
+            drugBuyertf.clear();
+            drugPurchaseDatetf.clear();
+            drugPurchaseTimetf.clear();
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void pushToHistory(){
+        HistoryDataSource historyStack = new HistoryDataSource();
+        int id = Integer.parseInt(drugIDtf.getText());
+        String buyer = drugBuyertf.getText();
+        int qty  = Integer.parseInt(drugQtytf.getText());
+        String time = drugPurchaseTimetf.getText();
+        Double price = Double.parseDouble(drugPricetf.getText());
+        String date =drugPurchaseDatetf.getText();
+
+        History history = new History(id, date, time, buyer, price, qty);
+        historyStack.pushToHistory(history);
     }
 }

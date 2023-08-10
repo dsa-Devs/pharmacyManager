@@ -1,6 +1,6 @@
 package com.example.pharmacy.controllers;
 
-import com.example.pharmacy.Data.DatabaseStack;
+import com.example.pharmacy.Data.DrugDataSource;
 import com.example.pharmacy.Repository.Drug;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -99,7 +99,7 @@ public class Drugs  implements Initializable {
     }
 
     public void pushToDatabase(){
-        DatabaseStack databaseStack = new DatabaseStack();
+        DrugDataSource databaseStack = new DrugDataSource();
         int id = Integer.parseInt(drugIDtf.getText());
         String name = drugNametf.getText();
         int qty  = Integer.parseInt(drugQtytf.getText());
@@ -113,7 +113,7 @@ public class Drugs  implements Initializable {
     }
 
     public void peeKAtDatabase(){
-       DatabaseStack databaseStack = new DatabaseStack();
+       DrugDataSource databaseStack = new DrugDataSource();
         ObservableList<Drug> drugCollection = databaseStack.peekAtDatabase();
 
         drugIDCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -129,7 +129,7 @@ public class Drugs  implements Initializable {
 
 
     public void popFromDatabase(){
-        DatabaseStack databaseStack = new DatabaseStack();
+        DrugDataSource databaseStack = new DrugDataSource();
         int id = Integer.parseInt(drugIDtf.getText());
         String name = drugNametf.getText();
         int qty  = Integer.parseInt(drugQtytf.getText());

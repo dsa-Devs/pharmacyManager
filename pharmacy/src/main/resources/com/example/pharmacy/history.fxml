@@ -5,18 +5,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacy.controllers.History">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacy.controllers.Histories">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="642.0">
          <children>
-            <TableView layoutX="146.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="historyTableView" layoutX="146.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
                 <TableColumn fx:id="drugIDCol" prefWidth="60.0" text="DRUG ID" />
                 <TableColumn fx:id="drugPurchaseTimeCol" prefWidth="126.6666030883789" text="PURCHASE TIME" />
                   <TableColumn fx:id="drugPurchaseDateCol" prefWidth="122.66667175292969" text="PURCHASE DATE" />
                   <TableColumn fx:id="drugBuyerCol" prefWidth="146.33328247070312" text="BUYER'S NAME" />
                   <TableColumn fx:id="drugQtyCol" prefWidth="70.0" text="DRUG QTY" />
-                  <TableColumn fx:id="drudPriceCol" text="PRICE" />
+                  <TableColumn fx:id="drugPriceCol" text="PRICE" />
               </columns>
             </TableView>
          </children>

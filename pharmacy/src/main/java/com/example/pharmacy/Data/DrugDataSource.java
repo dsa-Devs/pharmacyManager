@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-public class DatabaseStack {
+public class DrugDataSource {
 
     public void pushToDatabase(Drug drug){
         String connectionQuery = "INSERT INTO drug (id, name, qty, fabDate, expDate, vendor, unitPrice) VALUES (?, ?, ?, ?, ?, ?, ?)";
